@@ -2,9 +2,9 @@
 #include <string.h>
 
 //
-//±àÂë×ª»»
+//ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½
 int code_convert(char *to_charset, char *from_charset,
-                 char *inbuf, int inlen, char *outbuf, int outlen)
+                 char *inbuf, size_t inlen, char *outbuf, size_t outlen)
 {
   
   iconv_t cd;
@@ -19,20 +19,21 @@ int code_convert(char *to_charset, char *from_charset,
   
   bzero(outbuf,outlen);
   
-  if (iconv(cd,pin, &inlen, pout, &outlen)==(size_t) -1)
+  // if (iconv(cd,pin, &inlen, pout, &outlen)== (size_t) -1)
+  if (iconv(cd,pin, &inlen, pout, &outlen)==  (size_t)-1)
     flag = -1;
   
   iconv_close(cd);
   return flag;
 }
 
-//GB2312Âë×ªÎªUNICODEÂë
-int g2u(char *inbuf, int inlen, char *outbuf, int outlen)
+//GB2312ï¿½ï¿½×ªÎªUNICODEï¿½ï¿½
+int g2u(char *inbuf, size_t inlen, char *outbuf, size_t outlen)
 {
   return code_convert("utf-8", "gb2312", inbuf, inlen, outbuf, outlen);
 }
 
-//UNICODEÂë×ªÎªGB2312Âë
+//UNICODEï¿½ï¿½×ªÎªGB2312ï¿½ï¿½
 int u2g(char *inbuf, size_t inlen, char *outbuf, size_t outlen)
 {
   return code_convert("gb2312", "utf-8", inbuf, inlen, outbuf, outlen);

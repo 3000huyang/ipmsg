@@ -164,6 +164,7 @@ int msgCreater(char* msg, command* com, size_t msgLen)
     
   }
 
+  // strncpy(msg, dest, msgLen);
   if (utf8)
     u2g(dest, sizeof(dest), msg, msgLen);
   else strncpy(msg, dest, msgLen);
